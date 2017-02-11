@@ -1,21 +1,31 @@
 import { schema } from 'normalizr'
 
-const nodes = new schema.Entity('nodes', {}, {
+export const nodeSchema = new schema.Entity('nodes', {}, {
   idAttribute: 'name'
 })
-const users = new schema.Entity('users', {}, {
+
+export const userSchema = new schema.Entity('users', {}, {
   idAttribute: 'name'
 })
-const posts = new schema.Entity('posts', {}, {
+
+export const postSchema = new schema.Entity('posts', {}, {
   idAttribute: '_id'
 })
 
-posts.define({
-  node: nodes,
-  author: users,
-  last_comment_user: users
+export const commentSchema = new schema.Entity('comments', {}, {
+  idAttribute: '_id'
 })
 
-export const postListSchema = new schema.Array(posts)
-export const postSchema = posts
-export const nodeListSchema = new schema.Array(nodes)
+postSchema.define({
+  node: nodeSchema,
+  author: userSchema,
+  last_comment_user: userSchema
+})
+
+commentSchema.define({
+  author: userSchema
+})
+
+export const postListSchema = new schema.Array(postSchema)
+export const nodeListSchema = new schema.Array(nodeSchema)
+export const commentListSchema = new schema.Array(commentSchema)

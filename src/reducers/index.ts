@@ -5,11 +5,13 @@ import { routerReducer } from 'react-router-redux'
 import posts from './posts'
 import nodes from './nodes'
 import users from './users'
+import comments from './comments'
 
 const rootReducer = combineReducers({
   posts,
   nodes,
   users,
+  comments,
   routing: routerReducer
 })
 

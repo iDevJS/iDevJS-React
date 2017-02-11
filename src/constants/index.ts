@@ -1,7 +1,6 @@
 // posts
 export const NEW_POST = 'App/NEW_POST'
 export const EDIT_POST = 'App/EDIT_POST'
-export const LIST_POSTS = 'App/LIST_POSTS'
 export const REQUEST_POSTS = 'App/REQUEST_POSTS'
 export const RECEIVE_POSTS = 'App/RECEIVE_POSTS'
 export const REQUEST_POST = 'App/REQUEST_POST'
@@ -24,7 +23,11 @@ export const REQUEST_NODE = 'App/REQUEST_NODE'
 export const RECEIVE_NODE = 'App/RECEIVE_NODE'
 
 // comments
+export const NEW_COMMENT = 'App/NEW_COMMENT'
+export const REQUEST_COMMENTS = 'App/REQUEST_COMMENTS'
 export const RECEIVE_COMMENTS = 'App/RECEIVE_COMMENTS'
+export const UPVOTE_COMMENT = 'App/UPVOTE_COMMENT'
+export const DOWNVOTE_COMMENT = 'App/DOWNVOTE_COMMENT'
 
 // labels
 export const REQUEST_LABELS = 'App/REQUEST_LABELS'

@@ -1,1 +1,22 @@
 @import "../node_modules/idevjs-style/dist/app.css"
+@import '../node_modules/react-select/dist/react-select.css'
+
+.post-editor-header
+  .Select:first-child
+    width 100px
+  .Select:nth-child(2)
+    width 80px
+
+.Select-control
+  border none
+  border-radius 0
+  border-right 1px solid #eee
+.is-open > .Select-control
+  border-color #eee
+.is-focused:not(.is-open) > .Select-control
+  border-color #eee
+  box-shadow none
+.Select-menu-outer
+  border-color #eee
+.Select--single > .Select-control .Select-value
+  line-height 36px

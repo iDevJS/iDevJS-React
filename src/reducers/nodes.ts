@@ -18,30 +18,6 @@ const nodeReducer = (state = INITIAL_STATE, action) => {
   let nodes
   let lists
   switch (action.type) {
-    case RECEIVE_POST:
-      ret = normalize(action.payload, postSchema)
-      nodes = ret.entities.nodes
-      lists = Object.keys(nodes)
-      lists.map(item => {
-        if (state.items[item] && nodes[item].updated_at > state.items[item].updated_at) {
-
-        }
-      })
-      return {
-        ...state,
-        lists,
-        items: { ...state.items, ...nodes }
-      }
-    case RECEIVE_POSTS:
-      ret = normalize(action.payload, postListSchema)
-      nodes = ret.entities.nodes
-      lists = Object.keys(nodes)
-      return {
-        ...state,
-        isFetching: false,
-        lists,
-        items: { ...state.items, ...nodes }
-      }
     case RECEIVE_NODES:
       ret = normalize(action.payload, nodeListSchema)
       nodes = ret.entities.nodes

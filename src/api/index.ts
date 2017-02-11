@@ -40,10 +40,16 @@ export default class API extends Client {
   listPostComments(pid) {
     return this._request('GET', `posts/${pid}/comments`)
   }
+  addComment(pid, data) {
+    return this._request('POST', `posts/${pid}/comments`, data)
+  }
   listNodes() {
     return this._request('GET', `nodes`)
   }
   getNode(node) {
     return this._request('GET', `nodes/${node}`)
+  }
+  getNodePost(node) {
+    return this._request('GET', `ndoes/${node}/posts`)
   }
 }

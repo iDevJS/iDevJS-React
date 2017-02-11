@@ -10,6 +10,10 @@ import Client from '../api/'
 
 const client = new Client(window.localStorage.getItem('idevjs_token'))
 
+export const createPost = (data) => {
+  return client.createPost(data)
+}
+
 export const requestPosts = () => {
   return {
     type: REQUEST_POSTS
