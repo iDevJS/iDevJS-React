@@ -1,4 +1,5 @@
 import { normalize } from 'normalizr'
+import { fromJS, Set } from 'immutable'
 import {
   RECEIVE_POST,
   RECEIVE_POSTS,
@@ -7,11 +8,11 @@ import {
 } from '../constants'
 import { postListSchema, postSchema, nodeListSchema } from '../constants/schema'
 
-const INITIAL_STATE = {
+const INITIAL_STATE = fromJS({
   isFetching: false,
   items: {},
   lists: []
-}
+})
 
 const nodeReducer = (state = INITIAL_STATE, action) => {
   let ret
@@ -20,14 +21,12 @@ const nodeReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case RECEIVE_NODES:
       ret = normalize(action.payload, nodeListSchema)
-      nodes = ret.entities.nodes
-      lists = Object.keys(nodes)
-      return {
-        ...state,
-        isFetching: false,
-        lists,
-        items: { ...state.items, ...nodes }
-      }
+
+      return state
+        .set('isFetching', false)
+        .set('lists', Set(ret.result))
+        .set('items', fromJS(ret.entities.nodes))
+
     default:
       return state
   }

@@ -1,4 +1,5 @@
 import { normalize } from 'normalizr'
+import { fromJS } from 'immutable'
 import {
   RECEIVE_POST,
   RECEIVE_POSTS,
@@ -6,11 +7,11 @@ import {
 } from '../constants'
 import { postListSchema, postSchema } from '../constants/schema'
 
-const INITIAL_STATE = {
+const INITIAL_STATE = fromJS({
   isFetching: false,
   items: {},
   lists: []
-}
+})
 
 const userReducer = (state = INITIAL_STATE, action) => {
   let ret
@@ -21,21 +22,19 @@ const userReducer = (state = INITIAL_STATE, action) => {
       ret = normalize(action.payload, postSchema)
       users = ret.entities.users
       lists = Object.keys(users)
-      return {
-        ...state,
-        lists,
-        items: { ...state.items, ...ret.entities.users }
-      }
+      return state
+        .set('lists', lists)
+        .set('items', users)
+
     case RECEIVE_POSTS:
       ret = normalize(action.payload, postListSchema)
       users = ret.entities.users
       lists = Object.keys(users)
-      return {
-        ...state,
-        isFetching: false,
-        lists,
-        items: { ...state.items, ...ret.entities.users }
-      }
+      return state
+        .set('isFetching', false)
+        .set('lists', lists)
+        .set('items', users)
+
     default:
       return state
   }

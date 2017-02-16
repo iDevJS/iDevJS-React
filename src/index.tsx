@@ -10,8 +10,24 @@ import routes from './routes'
 
 const store = configureStore()
 
+const createSelectLocationState = () => {
+  let prevRoutingState, prevRoutingStateJS
+  return (state) => {
+    const routingState = state.get('routing') // or state.routing
+    console.log(routingState)
+    if (typeof prevRoutingState === 'undefined' || prevRoutingState !== routingState) {
+      prevRoutingState = routingState
+      prevRoutingStateJS = routingState.toJS()
+    }
+    return prevRoutingStateJS
+  }
+}
+
+
 // configureStore().then(store => {
-const appHistory = syncHistoryWithStore(browserHistory, store)
+const appHistory = syncHistoryWithStore(browserHistory, store, {
+  selectLocationState: createSelectLocationState()
+})
 
 ReactDOM.render(
   <Provider store={store}>

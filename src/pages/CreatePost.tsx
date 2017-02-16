@@ -9,7 +9,9 @@ class CreatePostPage extends React.Component<any, any> {
     return (
       <div className="post-create container">
         <div className="content">
-          <PostEditor />
+          <div className="block">
+            <PostEditor />
+          </div>
         </div>
         <div className="aside">
 

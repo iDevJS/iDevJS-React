@@ -2,11 +2,12 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { fetchPosts } from '../actions/posts'
 import PostItem from '../components/post/PostItem'
+import Loading from '../components/site/Loading'
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts,
-    users: state.users
+    posts: state.get('posts').toJS(),
+    users: state.get('users').toJS()
   }
 }
 
@@ -16,7 +17,9 @@ class PostList extends React.Component<any, any> {
   }
   render() {
     const { posts, users } = this.props
-    const { lists, items } = posts
+    const lists = posts.lists
+    const items = posts.items
+
     if (lists.length) {
       const postList = lists.map((pid) => {
         let post = items[pid]
@@ -34,7 +37,7 @@ class PostList extends React.Component<any, any> {
       )
     } else {
       return (
-        <span>loading</span>
+        <Loading />
       )
     }
   }

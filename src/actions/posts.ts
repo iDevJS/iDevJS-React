@@ -41,8 +41,9 @@ export const requestPost = (pid) => (dispatch) => {
 
 export const fetchPost = (pid) => (dispatch, getState) => {
   const now = Date.now()
-  const posts = getState().posts.items
-  const post = posts[pid]
+  const state = getState()
+  const posts = state.get('posts').toJS()
+  const post = posts.items[pid]
   if (post && post.content) {
     return
   } else {
@@ -53,7 +54,8 @@ export const fetchPost = (pid) => (dispatch, getState) => {
 }
 
 export const fetchPosts = () => (dispatch, getState) => {
-  const posts = getState().posts
+  const state = getState()
+  const posts = state.get('posts').toJS()
   const now = Date.now()
   if (now - posts.lastUpdated < 5 * 60 * 1000) {
     // dispatch(receivePosts(posts))

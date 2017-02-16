@@ -45,7 +45,7 @@ const environment: any = window || this
 //   })
 // }
 
-function configureStore(initialState?) {
+function configureStore(initialState = Map()) {
   const enchancer = compose(
     applyMiddleware(..._getMiddleware()),
     __DEV__ && environment.devToolsExtension ?

@@ -490,7 +490,7 @@ th {
   -ms-flex-align: start;
   -webkit-align-items: flex-start;
   align-items: flex-start;
-  padding: 0.625rem 0.75rem;
+  padding: 0.625rem;
   border-bottom: 1px solid #f3f3f3;
   min-height: 3.6rem;
 }
@@ -646,8 +646,6 @@ th {
 }
 .post-detail {
   background: #fff;
-  -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.03);
-  box-shadow: 2px 2px 2px rgba(0,0,0,0.03);
 }
 .post-header {
   display: -webkit-box;
@@ -729,12 +727,14 @@ th {
   content: "\B7";
   padding: 0 0.45em;
 }
-.post-metadata li:last-child::after {
+.post-metadata li:last-child:after {
   content: '';
   display: none;
 }
 .post-body {
-  display: block;
+  padding: 10px;
+}
+.empty-comment {
   padding: 20px;
 }
 .comment-list .card-header {
@@ -792,6 +792,39 @@ th {
 .user-comment-item .user-comment-header .metadata {
   color: #8899a6;
   font-size: 12.8px;
+}
+.comment-box-header {
+  padding: 5px 10px;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.comment-box-footer {
+  background: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.comment-box-body {
+  background: rgba(0,0,0,0.01);
+  border-bottom: 1px solid #e6e6e6;
+}
+.comment-box-body textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border: 0;
+  margin: 0;
+  padding: 5px 10px;
+  line-height: 1.5;
+  color: #666;
+  background: transparent;
+  resize: vertical;
+/*box-shadow 0 0 40px 0 rgba(0,0,0,0.08) inset*/
+}
+.comment-box-body textarea:focus {
+  outline: none;
 }
 .user-profile {
   display: -webkit-box;
@@ -930,6 +963,7 @@ a {
 .material-icons {
   font-size: 12px;
   vertical-align: middle;
+  color: #8899a6;
 }
 .page-nav {
   padding: 10px;
@@ -990,11 +1024,10 @@ ac-tab-header {
 .clearfix:after {
   clear: both;
 }
-.post-list,
-.post-editor {
+.block {
+  margin-bottom: 10px;
   background: #fff;
   border-radius: 3px;
-  border-radius: 4px;
   -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.03);
   box-shadow: 2px 2px 2px rgba(0,0,0,0.03);
 }
@@ -1514,6 +1547,9 @@ ac-tab-header {
   border: none;
   border-radius: 0;
   border-right: 1px solid #eee;
+}
+.Select-control:hover {
+  box-shadow: none;
 }
 .is-open > .Select-control {
   border-color: #eee;

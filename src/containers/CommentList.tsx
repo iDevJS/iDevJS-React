@@ -2,11 +2,13 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { fetchComments } from '../actions/comments'
 import CommentItem from '../components/comment/CommentItem'
+import EmptyComment from '../components/comment/EmptyComment'
+import Loading from '../components/site/Loading'
 
 function mapStateToProps(state, ownProps) {
   return {
-    comments: state.comments,
-    users: state.users,
+    comments: state.get('comments').toJS(),
+    users: state.get('users').toJS(),
     pid: ownProps.pid
   }
 }
@@ -18,13 +20,16 @@ class CommentList extends React.Component<any, any> {
   }
   render() {
     const { comments, users } = this.props
-    const { lists, items } = comments
-    if (lists.length) {
+    const { isFetching, lists, items } = comments
+    if (isFetching) {
+      return <Loading />
+    } else if (lists.length) {
       const commentList = lists.map((cid) => {
         let comment = items[cid]
         return (
           <CommentItem
             comment={comment}
+            author={users.items[comment.author]}
             key={cid} />
         )
       })
@@ -35,7 +40,7 @@ class CommentList extends React.Component<any, any> {
       )
     } else {
       return (
-        <span>loading</span>
+        <EmptyComment />
       )
     }
   }
