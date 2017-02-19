@@ -7,6 +7,7 @@ import Loading from '../components/site/Loading'
 
 function mapStateToProps(state, ownProps) {
   return {
+    posts: state.get('posts').toJS(),
     comments: state.get('comments').toJS(),
     users: state.get('users').toJS(),
     pid: ownProps.pid
@@ -19,12 +20,13 @@ class CommentList extends React.Component<any, any> {
     dispatch(fetchComments(pid))
   }
   render() {
-    const { comments, users } = this.props
-    const { isFetching, lists, items } = comments
+    const { posts, comments, users, pid } = this.props
+    const { isFetching, items } = comments
+    const postComments = posts.items[pid] && posts.items[pid].comments
     if (isFetching) {
       return <Loading />
-    } else if (lists.length) {
-      const commentList = lists.map((cid) => {
+    } else if (postComments && postComments.length) {
+      const commentList = postComments.map((cid) => {
         let comment = items[cid]
         return (
           <CommentItem

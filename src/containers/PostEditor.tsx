@@ -5,7 +5,7 @@ import Editor from '../components/editor/Markdown'
 
 function mapStateToProps(state, ownProps) {
   return {
-    nodes: state.nodes
+    nodes: state.get('nodes').toJS()
   }
 }
 

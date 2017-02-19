@@ -1,4 +1,5 @@
 import {
+  ADDING_COMMENT,
   NEW_COMMENT,
   REQUEST_COMMENTS,
   RECEIVE_COMMENTS,
@@ -9,17 +10,29 @@ import Client from '../api/'
 
 const client = new Client(window.localStorage.getItem('idevjs_token'))
 
-export const addingComment = () => {
-
+export const addingComment = (pid) => {
+  return {
+    type: ADDING_COMMENT,
+    meta: {
+      pid
+    }
+  }
 }
 
-export const addedComment = () => {
-
+export const newComment = (pid, data) => {
+  return {
+    type: NEW_COMMENT,
+    payload: data,
+    meta: {
+      pid
+    }
+  }
 }
 
-export const addComment = (pid, data) => {
+export const addComment = (pid, data) => dispatch => {
+  dispatch(addingComment(pid))
   return client.addComment(pid, data)
-    .then(res => { })
+    .then(res => dispatch(newComment(pid, res.data)))
 }
 
 export const requestComments = (pid) => {

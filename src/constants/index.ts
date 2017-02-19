@@ -23,6 +23,7 @@ export const REQUEST_NODE = 'App/REQUEST_NODE'
 export const RECEIVE_NODE = 'App/RECEIVE_NODE'
 
 // comments
+export const ADDING_COMMENT = 'App/ADDING_COMMENT'
 export const NEW_COMMENT = 'App/NEW_COMMENT'
 export const REQUEST_COMMENTS = 'App/REQUEST_COMMENTS'
 export const RECEIVE_COMMENTS = 'App/RECEIVE_COMMENTS'

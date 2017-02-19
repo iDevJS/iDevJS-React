@@ -5,9 +5,11 @@ import {
   RECEIVE_POSTS,
   RECEIVE_POST,
   REQUEST_COMMENTS,
-  RECEIVE_COMMENTS
+  RECEIVE_COMMENTS,
+  NEW_COMMENT
 } from '../constants'
 import {
+  commentSchema,
   commentListSchema,
   postListSchema,
   postSchema
@@ -17,7 +19,7 @@ const INITIAL_STATE = fromJS({
   isFetching: false,
   isPending: false,
   items: {},
-  lists: []
+  lists: Set()
 })
 
 const postReducer = (state = INITIAL_STATE, action) => {
@@ -32,8 +34,8 @@ const postReducer = (state = INITIAL_STATE, action) => {
       return state
         .set('isFetching', false)
         .set('lastUpdated', Date.now())
-        .set('lists', Set(ret.result))
-        .set('items', fromJS(ret.entities.posts))
+        .update('lists', lists => lists.concat(ret.result))
+        .mergeIn(['items'], ret.entities.posts)
 
     case RECEIVE_POST:
       ret = normalize(action.payload, postSchema)
@@ -45,6 +47,16 @@ const postReducer = (state = INITIAL_STATE, action) => {
       ret = normalize(action.payload, commentListSchema)
 
       return state
+        .setIn(['items', action.meta.pid, 'comments'], ret.result)
+
+    case NEW_COMMENT:
+      ret = normalize(action.payload, commentSchema)
+
+      return state.updateIn(['items', action.meta.pid, 'comments'], comments => {
+        comments.push(ret.result)
+        return comments
+      })
+
     default:
       return state
   }
