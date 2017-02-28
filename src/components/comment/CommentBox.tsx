@@ -8,7 +8,7 @@ const CommentBox = (props) => {
         <textarea cols={30} rows={6} value={props.content} onChange={props.onChangeContent}></textarea>
       </div>
       <div className="comment-box-footer">
-        <button className="btn btn-default" type="submit" onClick={props.onSubmitComment} >提交</button>
+        <button className="btn btn-default" disabled={props.pending} type="submit" onClick={props.onSubmitComment} >提交</button>
       </div>
     </form>
   )

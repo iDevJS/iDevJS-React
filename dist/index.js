@@ -60,7 +60,6 @@
 	        prevRoutingStateJS = void 0;
 	    return function (state) {
 	        var routingState = state.get('routing'); // or state.routing
-	        console.log(routingState);
 	        if (typeof prevRoutingState === 'undefined' || prevRoutingState !== routingState) {
 	            prevRoutingState = routingState;
 	            prevRoutingStateJS = routingState.toJS();
@@ -42567,9 +42566,7 @@
 	exports.addComment = function (pid, data) {
 	    return function (dispatch) {
 	        dispatch(exports.addingComment(pid));
-	        return client.addComment(pid, data).then(function (res) {
-	            return dispatch(exports.newComment(pid, res.data));
-	        });
+	        return client.addComment(pid, data);
 	    };
 	};
 	exports.requestComments = function (pid) {
@@ -42659,7 +42656,8 @@
 	var CommentBox_1 = __webpack_require__(378);
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 	    return {
-	        users: state.users,
+	        comments: state.get('comments').toJS(),
+	        users: state.get('users').toJS(),
 	        pid: ownProps.pid
 	    };
 	};
@@ -42687,7 +42685,14 @@
 	                dispatch = _this$props.dispatch;
 	            var content = _this.state.content;
 	
-	            dispatch(comments_1.addComment(pid, { content: content }));
+	            dispatch(comments_1.addComment(pid, { content: content })).then(function (res) {
+	                dispatch(comments_1.newComment(pid, res.data));
+	                _this.setState({
+	                    content: ''
+	                });
+	            }).catch(function (err) {
+	                return console.error(err);
+	            });
 	        };
 	        return _this;
 	    }
@@ -42696,7 +42701,11 @@
 	        key: "render",
 	        value: function render() {
 	            var state = this.state;
-	            return React.createElement(CommentBox_1.default, { content: state.content, onChangeContent: this.onChangeContent, onSubmitComment: this.onSubmitComment });
+	            var props = this.props;
+	            var comments = props.comments,
+	                users = props.users;
+	
+	            return React.createElement(CommentBox_1.default, { pending: comments.isPending, content: state.content, onChangeContent: this.onChangeContent, onSubmitComment: this.onSubmitComment });
 	        }
 	    }]);
 	
@@ -42714,7 +42723,7 @@
 	
 	var React = __webpack_require__(1);
 	var CommentBox = function CommentBox(props) {
-	    return React.createElement("form", { className: "comment-box" }, React.createElement("div", { className: "comment-box-header" }, "\u56DE\u590D"), React.createElement("div", { className: "comment-box-body" }, React.createElement("textarea", { cols: 30, rows: 6, value: props.content, onChange: props.onChangeContent })), React.createElement("div", { className: "comment-box-footer" }, React.createElement("button", { className: "btn btn-default", type: "submit", onClick: props.onSubmitComment }, "\u63D0\u4EA4")));
+	    return React.createElement("form", { className: "comment-box" }, React.createElement("div", { className: "comment-box-header" }, "\u56DE\u590D"), React.createElement("div", { className: "comment-box-body" }, React.createElement("textarea", { cols: 30, rows: 6, value: props.content, onChange: props.onChangeContent })), React.createElement("div", { className: "comment-box-footer" }, React.createElement("button", { className: "btn btn-default", disabled: props.pending, type: "submit", onClick: props.onSubmitComment }, "\u63D0\u4EA4")));
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = CommentBox;

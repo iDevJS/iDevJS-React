@@ -32,7 +32,6 @@ export const newComment = (pid, data) => {
 export const addComment = (pid, data) => dispatch => {
   dispatch(addingComment(pid))
   return client.addComment(pid, data)
-    .then(res => dispatch(newComment(pid, res.data)))
 }
 
 export const requestComments = (pid) => {

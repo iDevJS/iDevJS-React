@@ -6,10 +6,6 @@
   version "4.5.0"
   resolved "http://registry.npm.taobao.org/@types/history/download/@types/history-4.5.0.tgz#2f5c3aad4fbd00f89e99b83083e354bc5308e307"
 
-"@types/lodash@^4.14.52":
-  version "4.14.52"
-  resolved "http://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.52.tgz#de5c7ab14da1289733233c9b0ec6f9e377db90f5"
-
 "@types/node@^7.0.5":
   version "7.0.5"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-7.0.5.tgz#96a0f0a618b7b606f1ec547403c00650210bfbb7"
